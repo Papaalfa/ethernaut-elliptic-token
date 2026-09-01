@@ -1,66 +1,30 @@
-## Foundry
+# Ethernaut — Elliptic Token
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+- **Level:** #35 — Elliptic Token
+- **Difficulty:** 8
+- **Author:** jack&Gianfranco
+- **Created:** 2025-07-10
+- **Level page:** https://ethernaut.openzeppelin.com/level/0x1696D4B915Ec980872a2685d580DE0e79C1Aa1a1
+- **Instance contract:** `src/EllipticToken.sol`
 
-Foundry consists of:
+## Description
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+BOB created and owns a new ERC20 token with an elliptic curve–based signed voucher
+redemption system called EllipticToken ($ETK). Bob can create vouchers off-chain that
+can be redeemed on-chain for $ETK. The contract also includes a permit system based on
+elliptic curve signatures.
 
-## Documentation
+Bob is a lazy developer and "optimized" some steps of the ECDSA algorithm. Can you find
+the flaw?
 
-https://book.getfoundry.sh/
+Your goal is to steal the $ETK tokens that ALICE (`0xA11CE84AcB91Ac59B0A4E2945C9157eF3Ab17D4e`)
+just redeemed.
 
-## Usage
+&nbsp;
 
-### Build
+Things that might help:
+* Look for any missing step in the [Elliptic Curve Digital Signature Algorithm (ECDSA)](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm).
 
-```shell
-$ forge build
-```
+Good luck. Elliptic curves do not forgive domain confusion.
 
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+---
