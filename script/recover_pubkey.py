@@ -185,7 +185,34 @@ def main():
     ap.add_argument("--s", help="s, hex (alternative to --sig)")
     ap.add_argument("--v", type=int, help="v, 27 or 28 (alternative to --sig)")
     ap.add_argument("--expect", help="expected recovered address, for a sanity check")
+    ap.add_argument("--forge", action="store_true", help="build an existential-forgery signature for ALICE's Q_A")
+    ap.add_argument("-a", type=lambda x: int(x, 0), help="scalar a, for --forge (decimal or 0x-hex)")
+    ap.add_argument("-b", type=lambda x: int(x, 0), help="scalar b, for --forge (decimal or 0x-hex)")
     args = ap.parse_args()
+
+    if args.forge:
+        a = args.a if args.a is not None else int.from_bytes(__import__("os").urandom(16), "big") + 1
+        b = args.b if args.b is not None else int.from_bytes(__import__("os").urandom(16), "big") + 1
+        QA = (
+            int(DEFAULTS.get("alice_pubkey_x", "0x33da8e7fe906411e4fc12842632ec77c2aee6a4324a4a3ca554b56667e4ccf97"), 16),
+            int(DEFAULTS.get("alice_pubkey_y", "0xeda346ace5f9dce2781697ad353350c7509e1ffb491fedf49e37d4504185c676"), 16),
+        )
+        e, r, s, v = forge(a, b, QA)
+        Q_check = ecrecover_point(e, r, s, v)
+        print(f"a = {hex(a)}")
+        print(f"b = {hex(b)}")
+        print(f"amount (= e) = {hex(e)}")
+        print(f"r = {hex(r)}")
+        print(f"s = {hex(s)}  (low-s: {s <= N // 2})")
+        print(f"v = {v}")
+        print(f"self-check: ecrecover(amount, r, s, v) == Q_A -> {Q_check == QA}")
+        print()
+        print("Solidity paste:")
+        print(f"  uint256 amount = {hex(e)};")
+        print(f"  bytes32 r = {hex(r)};")
+        print(f"  bytes32 s = {hex(s)};")
+        print(f"  uint8   v = {v};")
+        return
 
     if args.digest and (args.sig or (args.r and args.s and args.v is not None)):
         digest = int(args.digest, 16)

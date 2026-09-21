@@ -63,12 +63,21 @@ to `e`. Preimage resistance blocks it.
 | `INITIAL_AMOUNT` | `10 ether` |
 | `salt` = `keccak256("BOB and ALICE are part of the secret sauce")` | `0x04a078de06d9d2ebd86ab2ae9c2b872b26e345d33f988d6d5d875f94e9c8ee1e` |
 | setup voucher digest = `keccak256(abi.encodePacked(uint256(10 ether), ALICE, salt))` | `0x87f1c8cd4c0e19511304b612a9b4996f8c2bd795796636bd25812cd5b0b6a973` |
-| `aliceSignature` (factory constant) | `0xab1dcd2a2a1c697715a62eb6522b7999d04aa952ffa2619988737ee675d9494f2b50ecce40040bcb29b5a8ca1da875968085f22b7c0a50f29a4851396251de121c` |
+| `bobSignature` (factory constant, = `ownerSignature` arg) | `0x085a4f70d03930425d3d92b19b9d4e37672a9224ee2cd68381a9854bb3673ef86b35cfdeee0fb1d2168587fb188eefb4fe046109af063bf85d9d3d6859ceb4451c` |
+| ↳ r_bob | `0x085a4f70d03930425d3d92b19b9d4e37672a9224ee2cd68381a9854bb3673ef8` |
+| ↳ s_bob | `0x6b35cfdeee0fb1d2168587fb188eefb4fe046109af063bf85d9d3d6859ceb445` (low-s ✓) |
+| ↳ v_bob | `28` |
+| BOB pubkey Q_B.x | `0xbedb8b4d1d5c3a30d2703b9cd87428c6c7eef9958791447294bc05ff14b7c7e0` |
+| BOB pubkey Q_B.y | `0xde9d549055204d85af2f85d8328a9037147b7f717af6940c4da51f5ae32de8e7` |
+| `aliceSignature` (factory constant, = `receiverSignature` arg) | `0xab1dcd2a2a1c697715a62eb6522b7999d04aa952ffa2619988737ee675d9494f2b50ecce40040bcb29b5a8ca1da875968085f22b7c0a50f29a4851396251de121c` |
 | ↳ r_alice | `0xab1dcd2a2a1c697715a62eb6522b7999d04aa952ffa2619988737ee675d9494f` |
 | ↳ s_alice | `0x2b50ecce40040bcb29b5a8ca1da875968085f22b7c0a50f29a4851396251de12` (low-s ✓) |
 | ↳ v_alice | `28` |
 | **ALICE pubkey Q_A.x** | `0x33da8e7fe906411e4fc12842632ec77c2aee6a4324a4a3ca554b56667e4ccf97` |
 | **ALICE pubkey Q_A.y** | `0xeda346ace5f9dce2781697ad353350c7509e1ffb491fedf49e37d4504185c676` |
+
+Note: `bobSignature` isn't needed for the exploit itself (only `Q_A` is) — it's here for
+completeness / because `setUp()` needs the literal bytes to replicate `redeemVoucher`.
 
 secp256k1: `n = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141`
 
