@@ -72,7 +72,7 @@ from the GitHub source and cross-checks them).
 
 ## Proof of solve (Sepolia)
 
-- Instance: `0xc19ada373ec24bea6659151531a6c772a859972f`
+- Instance: `0xcc8FFB2B79B21A2e60a5b685764BE53f48413594`
 - `permit` tx: `0x96849a2c1bf546ccbfe2e8dd5317541d3f076d49f14f565160d1834c3a5e9e19`
 - `transferFrom` tx: `0x55450f475855f4e3f35961ef047916c8960122a4de6d3744b89f1aaa186085df`
 - Final `balanceOf(ALICE)` → `0` (verified live via `cast call`)
